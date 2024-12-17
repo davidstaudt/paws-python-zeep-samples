@@ -1,16 +1,14 @@
-# axl-python-zeep-samples
+# paws-python-zeep-samples
 
 ## Overview
 
-These samples demonstrates how to use the Python Zeep SOAP library to manage Cisco Unified Communications Voice Operating System (VOS) nodes with the Platform Adminstration Web Service (PAWS).
+Samples demonstrating how to use the Python Zeep SOAP library to manage Cisco Unified Communications Voice Operating System (VOS) nodes with the Platform Adminstration Web Service (PAWS).
 
-[https://developer.cisco.com/site/axl/](https://developer.cisco.com/site/axl/)
-
-The concepts and techniques shown can be extended to enable automated management of virtually any configuration or setting in the CUCM admin UI.
+https://developer.cisco.com/site/paws
 
 ## Available samples
 
-* `paws_getAPIVersion.py` - Retrieves the current version of the PAWS API service from the CUCM
+* `paws_getAPIVersion.py` - Retrieves the current version of the PAWS API service from the VOS
 node. ( `<getAPIVersion>`).
 
 * `paws_getMyClusterNode.py` - Retrieves details about the VOS cluster node to which the PAWS request
@@ -114,7 +112,7 @@ is made. ( `<getMyClusterNode>`).
         '_value_1': 'bar'
     }
     ```
-* **xsd:SkipValue** When building the XML to send to CUCM, Zeep may include empty elements that are part of the schema but that you didn't explicity specify.  This may result in PAWS interpreting the empty element as indication to set the value to empty/nil/null.  To force Zeep to skip including an element from the request XML, set its value to `xsd:SkipValue`:
+* **xsd:SkipValue** When building the XML to send to the PAWS host, Zeep may include empty elements that are part of the schema but that you didn't explicity specify.  This may result in PAWS interpreting the empty element as indication to set the value to empty/nil/null.  To force Zeep to skip including an element from the request XML, set its value to `xsd:SkipValue`:
 
    ```python
    updatePhoneObj = {

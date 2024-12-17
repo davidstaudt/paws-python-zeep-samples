@@ -1,6 +1,6 @@
 """PAWS <getAPIVersion> sample script, using the Zeep SOAP library.
 
-Retrieves the current version of the PAWS API service from the CUCM
+Retrieves the current version of the PAWS API service from the VOS
 node.
 """
 
@@ -52,7 +52,7 @@ session.verify = False
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # To enable SSL cert checking (recommended for production)
-# place the CUCM Tomcat cert .pem file in the root of the project
+# place the VOS host's Tomcat cert .pem file in the root of the project
 # and uncomment the two lines below
 
 # CERT = 'changeme.pem'
@@ -76,7 +76,7 @@ APIVersionServiceClient = Client(
     plugins=plugin,
 )
 
-# Create the Zeep service binding to AXL at the specified CUCM
+# Create the Zeep service binding to PAWS at the specified VOS host
 APIVersionService = APIVersionServiceClient.create_service(
     "{http://services.api.platform.vos.cisco.com}APIVersionServiceSoap11Binding",
     f'https://{os.getenv("VOS_ADDRESS")}/platform-services/services/APIVersionService.APIVersionServiceHttpsSoap11Endpoint/',
