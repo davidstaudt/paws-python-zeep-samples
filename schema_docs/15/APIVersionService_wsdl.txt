@@ -1,0 +1,82 @@
+
+Prefixes:
+     xsd: http://www.w3.org/2001/XMLSchema
+     ns0: http://element.services.api.platform.vos.cisco.com/xsd
+     ns1: http://api.platform.vos.cisco.com/xsd
+     ns2: http://services.api.platform.vos.cisco.com
+
+Global elements:
+     ns2:getAPIVersion()
+     ns2:getAPIVersionResponse(return: ns0:APIVersionResponse)
+     
+
+Global types:
+     xsd:anyType
+     ns1:Message(error: xsd:boolean, info: xsd:boolean, messageKey: xsd:string, messageType: xsd:string, warning: xsd:boolean)
+     ns0:APIVersionResponse(remoteMessages: ns0:RemoteMessage[], result: xsd:string, APIVersion: xsd:string)
+     ns0:RemoteMessage(error: xsd:boolean, info: xsd:boolean, messageKey: xsd:string, messageType: xsd:string, warning: xsd:boolean, messageParams: xsd:string[])
+     ns0:RemoteResponse(remoteMessages: ns0:RemoteMessage[], result: xsd:string)
+     xsd:ENTITIES
+     xsd:ENTITY
+     xsd:ID
+     xsd:IDREF
+     xsd:IDREFS
+     xsd:NCName
+     xsd:NMTOKEN
+     xsd:NMTOKENS
+     xsd:NOTATION
+     xsd:Name
+     xsd:QName
+     xsd:anySimpleType
+     xsd:anyURI
+     xsd:base64Binary
+     xsd:boolean
+     xsd:byte
+     xsd:date
+     xsd:dateTime
+     xsd:decimal
+     xsd:double
+     xsd:duration
+     xsd:float
+     xsd:gDay
+     xsd:gMonth
+     xsd:gMonthDay
+     xsd:gYear
+     xsd:gYearMonth
+     xsd:hexBinary
+     xsd:int
+     xsd:integer
+     xsd:language
+     xsd:long
+     xsd:negativeInteger
+     xsd:nonNegativeInteger
+     xsd:nonPositiveInteger
+     xsd:normalizedString
+     xsd:positiveInteger
+     xsd:short
+     xsd:string
+     xsd:time
+     xsd:token
+     xsd:unsignedByte
+     xsd:unsignedInt
+     xsd:unsignedLong
+     xsd:unsignedShort
+
+Bindings:
+     HttpPostBinding: {http://services.api.platform.vos.cisco.com}APIVersionServiceHttpBinding
+     Soap11Binding: {http://services.api.platform.vos.cisco.com}APIVersionServiceSoap11Binding
+     Soap12Binding: {http://services.api.platform.vos.cisco.com}APIVersionServiceSoap12Binding
+
+Service: APIVersionService
+     Port: APIVersionServiceHttpsSoap11Endpoint (Soap11Binding: {http://services.api.platform.vos.cisco.com}APIVersionServiceSoap11Binding)
+         Operations:
+            getAPIVersion() -> return: ns0:APIVersionResponse
+
+     Port: APIVersionServiceHttpsSoap12Endpoint (Soap12Binding: {http://services.api.platform.vos.cisco.com}APIVersionServiceSoap12Binding)
+         Operations:
+            getAPIVersion() -> return: ns0:APIVersionResponse
+
+     Port: APIVersionServiceHttpsEndpoint (HttpPostBinding: {http://services.api.platform.vos.cisco.com}APIVersionServiceHttpBinding)
+         Operations:
+            getAPIVersion() -> remoteMessages: ns0:RemoteMessage[], result: xsd:string, APIVersion: xsd:string
+

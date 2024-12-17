@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://services.api.platform.vos.cisco.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:ax26="http://api.platform.vos.cisco.com/xsd" xmlns:ax25="http://element.services.api.platform.vos.cisco.com/xsd" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://services.api.platform.vos.cisco.com">
+    <wsdl:documentation>APIVersionService</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:ax27="http://api.platform.vos.cisco.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://element.services.api.platform.vos.cisco.com/xsd">
+            <xs:import namespace="http://api.platform.vos.cisco.com/xsd"/>
+            <xs:complexType name="RemoteResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="remoteMessages" nillable="true" type="ax25:RemoteMessage"/>
+                    <xs:element minOccurs="0" name="result" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RemoteMessage">
+                <xs:complexContent>
+                    <xs:extension base="ax27:Message">
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="messageParams" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="APIVersionResponse">
+                <xs:complexContent>
+                    <xs:extension base="ax25:RemoteResponse">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="APIVersion" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://api.platform.vos.cisco.com/xsd">
+            <xs:complexType name="Message">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="error" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="info" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="messageKey" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="messageType" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="warning" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ax28="http://element.services.api.platform.vos.cisco.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.api.platform.vos.cisco.com">
+            <xs:import namespace="http://element.services.api.platform.vos.cisco.com/xsd"/>
+            <xs:element name="getAPIVersion">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getAPIVersionResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax28:APIVersionResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getAPIVersionRequest">
+        <wsdl:part name="parameters" element="ns:getAPIVersion"/>
+    </wsdl:message>
+    <wsdl:message name="getAPIVersionResponse">
+        <wsdl:part name="parameters" element="ns:getAPIVersionResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="APIVersionServicePortType">
+        <wsdl:operation name="getAPIVersion">
+            <wsdl:input message="ns:getAPIVersionRequest" wsaw:Action="urn:getAPIVersion"/>
+            <wsdl:output message="ns:getAPIVersionResponse" wsaw:Action="urn:getAPIVersionResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="APIVersionServiceSoap11Binding" type="ns:APIVersionServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getAPIVersion">
+            <soap:operation soapAction="urn:getAPIVersion" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="APIVersionServiceSoap12Binding" type="ns:APIVersionServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getAPIVersion">
+            <soap12:operation soapAction="urn:getAPIVersion" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="APIVersionServiceHttpBinding" type="ns:APIVersionServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="getAPIVersion">
+            <http:operation location="getAPIVersion"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="APIVersionService">
+        <wsdl:port name="APIVersionServiceHttpsSoap11Endpoint" binding="ns:APIVersionServiceSoap11Binding">
+            <soap:address location="https://cucm15.xixax.com:8080/platform-services/services/APIVersionService.APIVersionServiceHttpsSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="APIVersionServiceHttpsSoap12Endpoint" binding="ns:APIVersionServiceSoap12Binding">
+            <soap12:address location="https://cucm15.xixax.com:8080/platform-services/services/APIVersionService.APIVersionServiceHttpsSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="APIVersionServiceHttpsEndpoint" binding="ns:APIVersionServiceHttpBinding">
+            <http:address location="https://cucm15.xixax.com:8080/platform-services/services/APIVersionService.APIVersionServiceHttpsEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

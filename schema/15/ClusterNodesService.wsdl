@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://services.api.platform.vos.cisco.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ax218="http://api.platform.vos.cisco.com/xsd" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ax217="http://element.services.api.platform.vos.cisco.com/xsd" targetNamespace="http://services.api.platform.vos.cisco.com">
+    <wsdl:documentation>ClusterNodesService</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:ax219="http://api.platform.vos.cisco.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://element.services.api.platform.vos.cisco.com/xsd">
+            <xs:import namespace="http://api.platform.vos.cisco.com/xsd"/>
+            <xs:complexType name="RemoteResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="remoteMessages" nillable="true" type="ax217:RemoteMessage"/>
+                    <xs:element minOccurs="0" name="result" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RemoteMessage">
+                <xs:complexContent>
+                    <xs:extension base="ax218:Message">
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="messageParams" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="ClusterNodeStatusResponse">
+                <xs:complexContent>
+                    <xs:extension base="ax217:RemoteResponse">
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="clusterNodeStatus" nillable="true" type="ax217:ClusterNodeStatus"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="RemoteElement">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="Node">
+                <xs:complexContent>
+                    <xs:extension base="ax217:RemoteElement">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="address" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="alias" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="hostname" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="ClusterNode">
+                <xs:complexContent>
+                    <xs:extension base="ax217:Node">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="primaryNode" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="ClusterNodeStatus">
+                <xs:complexContent>
+                    <xs:extension base="ax217:ClusterNode">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="dbRole" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="role" type="xs:int"/>
+                            <xs:element minOccurs="0" name="status" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="ClusterNodesResponse">
+                <xs:complexContent>
+                    <xs:extension base="ax217:RemoteResponse">
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="clusterNodes" nillable="true" type="ax217:ClusterNode"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="ClusterReplicationStatusResponse">
+                <xs:complexContent>
+                    <xs:extension base="ax217:RemoteResponse">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="clusterReplicationStatusOK" type="xs:boolean"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="NodeReplicationStatusResponse">
+                <xs:complexContent>
+                    <xs:extension base="ax217:RemoteResponse">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="nodeReplicationStatusOK" type="xs:boolean"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://api.platform.vos.cisco.com/xsd">
+            <xs:complexType name="Message">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="error" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="info" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="messageKey" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="messageType" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="warning" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ax220="http://element.services.api.platform.vos.cisco.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.api.platform.vos.cisco.com">
+            <xs:import namespace="http://element.services.api.platform.vos.cisco.com/xsd"/>
+            <xs:element name="getClusterStatus">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getClusterStatusResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax217:ClusterNodeStatusResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getMyClusterNode">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getMyClusterNodeResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax217:ClusterNodesResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getClusterNodes">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getClusterNodesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax217:ClusterNodesResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isClusterReplicationOK">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isClusterReplicationOKResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax217:ClusterReplicationStatusResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isNodeReplicationOK">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isNodeReplicationOKResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax217:NodeReplicationStatusResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getClusterStatusRequest">
+        <wsdl:part name="parameters" element="ns:getClusterStatus"/>
+    </wsdl:message>
+    <wsdl:message name="getClusterStatusResponse">
+        <wsdl:part name="parameters" element="ns:getClusterStatusResponse"/>
+    </wsdl:message>
+    <wsdl:message name="isClusterReplicationOKRequest">
+        <wsdl:part name="parameters" element="ns:isClusterReplicationOK"/>
+    </wsdl:message>
+    <wsdl:message name="isClusterReplicationOKResponse">
+        <wsdl:part name="parameters" element="ns:isClusterReplicationOKResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getMyClusterNodeRequest">
+        <wsdl:part name="parameters" element="ns:getMyClusterNode"/>
+    </wsdl:message>
+    <wsdl:message name="getMyClusterNodeResponse">
+        <wsdl:part name="parameters" element="ns:getMyClusterNodeResponse"/>
+    </wsdl:message>
+    <wsdl:message name="isNodeReplicationOKRequest">
+        <wsdl:part name="parameters" element="ns:isNodeReplicationOK"/>
+    </wsdl:message>
+    <wsdl:message name="isNodeReplicationOKResponse">
+        <wsdl:part name="parameters" element="ns:isNodeReplicationOKResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getClusterNodesRequest">
+        <wsdl:part name="parameters" element="ns:getClusterNodes"/>
+    </wsdl:message>
+    <wsdl:message name="getClusterNodesResponse">
+        <wsdl:part name="parameters" element="ns:getClusterNodesResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="ClusterNodesServicePortType">
+        <wsdl:operation name="getClusterStatus">
+            <wsdl:input message="ns:getClusterStatusRequest" wsaw:Action="urn:getClusterStatus"/>
+            <wsdl:output message="ns:getClusterStatusResponse" wsaw:Action="urn:getClusterStatusResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="isClusterReplicationOK">
+            <wsdl:input message="ns:isClusterReplicationOKRequest" wsaw:Action="urn:isClusterReplicationOK"/>
+            <wsdl:output message="ns:isClusterReplicationOKResponse" wsaw:Action="urn:isClusterReplicationOKResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getMyClusterNode">
+            <wsdl:input message="ns:getMyClusterNodeRequest" wsaw:Action="urn:getMyClusterNode"/>
+            <wsdl:output message="ns:getMyClusterNodeResponse" wsaw:Action="urn:getMyClusterNodeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="isNodeReplicationOK">
+            <wsdl:input message="ns:isNodeReplicationOKRequest" wsaw:Action="urn:isNodeReplicationOK"/>
+            <wsdl:output message="ns:isNodeReplicationOKResponse" wsaw:Action="urn:isNodeReplicationOKResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getClusterNodes">
+            <wsdl:input message="ns:getClusterNodesRequest" wsaw:Action="urn:getClusterNodes"/>
+            <wsdl:output message="ns:getClusterNodesResponse" wsaw:Action="urn:getClusterNodesResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ClusterNodesServiceSoap11Binding" type="ns:ClusterNodesServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getClusterStatus">
+            <soap:operation soapAction="urn:getClusterStatus" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isClusterReplicationOK">
+            <soap:operation soapAction="urn:isClusterReplicationOK" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getMyClusterNode">
+            <soap:operation soapAction="urn:getMyClusterNode" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isNodeReplicationOK">
+            <soap:operation soapAction="urn:isNodeReplicationOK" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getClusterNodes">
+            <soap:operation soapAction="urn:getClusterNodes" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ClusterNodesServiceSoap12Binding" type="ns:ClusterNodesServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getClusterStatus">
+            <soap12:operation soapAction="urn:getClusterStatus" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isClusterReplicationOK">
+            <soap12:operation soapAction="urn:isClusterReplicationOK" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getMyClusterNode">
+            <soap12:operation soapAction="urn:getMyClusterNode" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isNodeReplicationOK">
+            <soap12:operation soapAction="urn:isNodeReplicationOK" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getClusterNodes">
+            <soap12:operation soapAction="urn:getClusterNodes" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ClusterNodesServiceHttpBinding" type="ns:ClusterNodesServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="getClusterStatus">
+            <http:operation location="getClusterStatus"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isClusterReplicationOK">
+            <http:operation location="isClusterReplicationOK"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getMyClusterNode">
+            <http:operation location="getMyClusterNode"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isNodeReplicationOK">
+            <http:operation location="isNodeReplicationOK"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getClusterNodes">
+            <http:operation location="getClusterNodes"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ClusterNodesService">
+        <wsdl:port name="ClusterNodesServiceHttpsSoap11Endpoint" binding="ns:ClusterNodesServiceSoap11Binding">
+            <soap:address location="https://cucm15.xixax.com:8080/platform-services/services/ClusterNodesService.ClusterNodesServiceHttpsSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ClusterNodesServiceHttpsSoap12Endpoint" binding="ns:ClusterNodesServiceSoap12Binding">
+            <soap12:address location="https://cucm15.xixax.com:8080/platform-services/services/ClusterNodesService.ClusterNodesServiceHttpsSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="ClusterNodesServiceHttpsEndpoint" binding="ns:ClusterNodesServiceHttpBinding">
+            <http:address location="https://cucm15.xixax.com:8080/platform-services/services/ClusterNodesService.ClusterNodesServiceHttpsEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
